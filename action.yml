@@ -44,6 +44,7 @@ runs:
           --incremental \
           --all \
           --repository "$(basename ${{ github.repository }})" \
+          --as-app \
           ${{ github.actor }}
       shell: bash
     
