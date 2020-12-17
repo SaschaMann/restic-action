@@ -34,7 +34,7 @@ runs:
     - name: Install dependencies
       run: |
         sudo apt install restic
-        pip install github-backup
+        pip3 install github-backup
       shell: bash
 
     - name: Download GitHub data using github-backup
