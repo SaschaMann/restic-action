@@ -45,7 +45,7 @@ runs:
           --all \
           --repository "$(basename ${{ github.repository }})" \
           --as-app \
-          ${{ github.actor }}
+          ${{ github.repository_owner }}
       shell: bash
     
     - name: Upload to backup repo
