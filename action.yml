@@ -60,7 +60,7 @@ runs:
           --tag gha \
           --keep-daily 7 \
           --keep-weekly 5 \
-          --keep monthly 12 \
+          --keep-monthly 12 \
           --keep-yearly 1 \
           --prune
       shell: bash
