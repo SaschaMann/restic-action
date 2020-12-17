@@ -61,7 +61,7 @@ runs:
           --keep-daily 7 \
           --keep-weekly 5 \
           --keep-monthly 12 \
-          --keep-yearly 1 \
+          --keep-yearly 10 \
           --prune
       shell: bash
     
