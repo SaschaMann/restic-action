@@ -19,6 +19,11 @@ jobs:
             ~/.cache/restic
           key: ${{ runner.os }}
 
+      - name: Install the correct Python version
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
       - name: Run backup action
         uses: SaschaMann/restic-action@main
         env: # Options: https://restic.readthedocs.io/en/latest/040_backup.html#environment-variables
