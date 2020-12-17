@@ -1,0 +1,52 @@
+name: restic backup action
+description: Backup a repo with restic
+author: Sascha Mann
+
+branding:
+  icon: save
+  color: green
+
+inputs:
+  token:
+    description: GitHub access token
+    default: ${{ github.token }}
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check if repo already exists
+      id: existance
+      run: |
+        if restic snapshots; then
+          echo "::set-output name=exists::true"
+        fi
+      shell: bash
+
+    # Conditional steps are not allowed in composite actions
+    - name: Initialise repo if it doesn't exist
+      run: |
+        if ${{ steps.existance.outputs.exists }} != 'true'; then
+          restic init
+        fi
+      shell: bash
+
+    - name: Install dependencies
+      run: |
+        sudo apt install restic
+        pip install github-backup
+      shell: bash
+
+    - name: Download GitHub data using github-backup
+      run: |
+        github-backup \
+          --token "$INPUT_TOKEN" \
+          --incremental \
+          --all \
+          --repository "$(basename ${{ github.repository }})"
+      shell: bash
+    
+    - name: Upload to backup repo
+      run: |
+        restic --verbose backup --tag gha .
+      shell: bash

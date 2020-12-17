@@ -1,0 +1,28 @@
+name: Backup
+
+on:
+  schedule:
+    - cron: '5 4 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.GITHUB_WORKSPACE }}
+            ~/.cache/restic
+          key: ${{ runner.os }}-${{ hashFiles('.github/workflows/backup.yml') }}
+
+      - name: Run backup action
+        uses: SaschaMann/restic-action@main
+        env: # Options: https://restic.readthedocs.io/en/latest/040_backup.html#environment-variables
+          RESTIC_REPOSITORY: ${{ secrets.B2_BUCKET }}:${{ github.repository }}
+          RESTIC_PASSWORD: ${{ secrets.RESTIC_PASSWORD }}
+          B2_ACCOUNT_ID: ${{ secrets.B2_ACCOUNT_ID }}
+          B2_ACCOUNT_KEY: ${{ secrets.B2_ACCOUNT_KEY }}
