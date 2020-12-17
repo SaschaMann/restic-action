@@ -32,7 +32,7 @@ runs:
     # Conditional steps are not allowed in composite actions
     - name: Initialise repo if it doesn't exist
       run: |
-        if "${{ steps.existance.outputs.exists }}" != 'true'; then
+        if [ "${{ steps.existance.outputs.exists }}" != 'true' ]; then
           restic init
         fi
       shell: bash
