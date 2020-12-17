@@ -43,7 +43,8 @@ runs:
           --token "$INPUT_TOKEN" \
           --incremental \
           --all \
-          --repository "$(basename ${{ github.repository }})"
+          --repository "$(basename ${{ github.repository }})" \
+          ${{ github.actor }}
       shell: bash
     
     - name: Upload to backup repo
