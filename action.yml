@@ -57,7 +57,7 @@ runs:
     - name: Remove old snapshots according to policy
       run: |
         restic forget \
-          --tag gha \ # Only remove automatically created snapshots
+          --tag gha \
           --keep-daily 7 \
           --keep-weekly 5 \
           --keep monthly 12 \
