@@ -40,7 +40,7 @@ runs:
     - name: Download GitHub data using github-backup
       run: |
         github-backup \
-          --token "${{ inputs.token }}" \
+          --token "$INPUT_TOKEN" \
           --incremental \
           --all \
           --repository "$(basename ${{ github.repository }})" \
