@@ -25,7 +25,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run backup action
-        uses: SaschaMann/restic-action@main
+        uses: SaschaMann/restic-action@v1
         env: # Options: https://restic.readthedocs.io/en/latest/040_backup.html#environment-variables
           RESTIC_REPOSITORY: b2:${{ secrets.B2_BUCKET }}:${{ github.repository }}
           RESTIC_PASSWORD: ${{ secrets.RESTIC_PASSWORD }}
