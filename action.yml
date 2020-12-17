@@ -52,3 +52,19 @@ runs:
       run: |
         restic --verbose backup --tag gha .
       shell: bash
+    
+    # https://restic.readthedocs.io/en/latest/060_forget.html#removing-snapshots-according-to-a-policy
+    - name: Remove old snapshots according to policy
+      run: |
+        restic forget \
+          --tag gha \ # Only remove automatically created snapshots
+          --keep-daily 7 \
+          --keep-weekly 5 \
+          --keep monthly 12 \
+          --keep-yearly 1
+          --prune
+      shell: bash
+    
+    - name: Check integrity
+      run: restic check
+      shell: bash
